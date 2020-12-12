@@ -1,0 +1,163 @@
+
+{% extends "base.html" %}
+
+{% block  css %}
+	<title>Cadastrar Novo Médico</title>
+{% endblock %}
+
+
+{% block  main %}
+
+
+<div class="content">
+
+	<div >
+		<div class="page-header-title">
+			<h4 class="page-title">Médicos</h4>
+		</div>
+	</div>
+	<div class="page-content-wrapper ">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-primary">
+						<div class="panel-body">
+							<h2 style="text-decoration: underline; text-align: center; color: #36b3d0;" class="m-t-0 m-b-0">Cadastro  de Novo Médico</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<form action="{% url 'novo-medico' %}" method="post">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="panel panel-primary">
+							<div class="panel-body">
+								<div class="m-t-0">
+									<h4  class="m-t-0" style="position: relative; right: 8px;">Dados Pessoais</h4>
+									<div class="row">
+											<div class="form-group">
+												<label>Nome:</label>
+												<input type="text" name="nome" maxlength="200" required id="id_nome" class="form-control" placeholder="Nome"/>
+											</div>
+											<div style="padding: 0px;" class="col-sm-12 col-xs-12 form-group">
+												<div style="padding: 0px;" class="form-group col-sm-3 col-xs-3 ">
+													<label>CPF:</label>
+													<input type="text" name="cpf" maxlength="11" required id="id_cpf" class="form-control" placeholder="000.000.000-00"/>
+												</div>
+												<div class="col-sm-9 col-xs-9 form-group">
+													<label>E-mail:</label>
+													<input type="text" name="email" maxlength="200" required id="id_email" class="form-control" placeholder="example@mail.com"/>
+												</div>
+											</div>
+										<div style="padding: 0px;" class="col-sm-12 col-xs-12 form-group">
+												<div style="padding: 0px;" class="form-group col-sm-4 col-xs-4 ">
+													<label>Data de Nascimento:</label>
+													<input type="date" name="datanasc" maxlength="11" required id="id_datanasc" class="form-control" placeholder="00/00/0000"/>
+												</div>
+												<div class="col-sm-4 col-xs-4 form-group">
+													<label>Telefone:</label>
+													<input type="text" name="Telefone" maxlength="200" required id="id_Telefone" class="form-control" placeholder="Telefone"/>
+												</div>
+											<div class="col-sm-4 col-xs-4 form-group">
+													<label>Sexo:</label>
+												<select class="form-control" name="sexo" required="" id="id_sexo">
+														  <option value="" selected="">---------</option>
+														  <option value="F">Feminino</option>
+														  <option value="M">Masculino</option>
+														  <option value="N">Outros</option>
+												</select>
+												</div>
+											</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="panel panel-primary">
+							<div class="panel-body">
+								<div class="m-t-0">
+									<h4  class="m-t-0" style="position: relative; right: 8px;">Endereço</h4>
+									<div class="row">
+											<div class="form-group">
+												<label>Rua:</label>
+												<input type="text" name="rua" maxlength="200" required id="id_rua" class="form-control" placeholder="Rua"/>
+											</div>
+											<div class="form-group">
+												<label>Complementto:</label>
+												<input type="text" name="complemento" maxlength="200" required id="id_complemento" class="form-control" placeholder="Complemento"/>
+											</div>
+											<div style="padding: 0px;" class="col-sm-12 col-xs-12 form-group">
+												<div style="padding: 0px;" class="col-sm-6 col-xs-6 form-group">
+													<label>Bairro:</label>
+													<input type="text" name="bairro" maxlength="50" required id="id_bairro" class="form-control" placeholder="Bairro"/>
+												</div>
+												<div  class="form-group col-sm-2 col-xs-2 ">
+													<label>Numero:</label>
+													<input type="number" name="numero" maxlength="11" required id="id_numero" class="form-control" placeholder="Numero"/>
+												</div>
+												<div class="col-sm-4 col-xs-4 form-group">
+													<label>Cidade:</label>
+													<input type="text" name="cidade" maxlength="100" required id="id_cidade" class="form-control" placeholder="Cidade"/>
+												</div>
+											</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="panel panel-primary">
+							<div class="panel-body">
+								<div class="m-t-0">
+									<h4  class="m-t-0" style="position: relative; right: 8px;">Dados Medicos</h4>
+									<div class="row">
+											<div class="form-group">
+												<label>Especialização:</label>
+												<input type="text" name="especializacao" maxlength="100" required id="id_especializacao" class="form-control" placeholder="Especialização"/>
+											</div>
+											<div style="padding: 0px;" class="col-sm-12 col-xs-12 form-group">
+												<div style="padding: 0px;" class="col-sm-6 col-xs-6 form-group">
+													<label>Número Regional:</label>
+													<input type="text" name="numeroregional" maxlength="10" required id="id_numeroregional" class="form-control" placeholder="Numero Regional"/>
+												</div>
+												<div class="col-sm-6 col-xs-6 form-group">
+													<label>CBO:</label>
+													<input type="text" name="cbo" maxlength="10" required id="id_cbo" class="form-control" placeholder="CBO"/>
+												</div>
+											</div>
+										<div style="position: relative; left: 80%;">
+											<button style="font-size: 19px;" type="submit" class="btn btn-primary waves-effect waves-light">
+												Salvar
+											</button>
+										<a href="{% url 'index' %}">
+											<span style="font-size: 19px; " type="submit" class="btn btn-danger waves-effect waves-light">
+												Voltar
+											</span>
+										</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock  %}
+
+{% block scripts %}
+{{ block.super }}
+<script type="text/javascript">
+	muda('#Medic');
+ </script>
+
+{% endblock  %}

@@ -1,0 +1,237 @@
+
+
+
+{% extends "base.html" %}
+{% load static %}
+{% block  css %}
+	<title>Cadastrar Novo Atendimento</title>
+{% endblock %}
+
+
+{% block  main %}
+
+
+<div class="content">
+
+	<div >
+		<div class="page-header-title">
+			<h4 class="page-title">Atendimento</h4>
+		</div>
+	</div>
+	<div class="page-content-wrapper ">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-primary">
+						<div class="panel-body">
+							<h2 style="text-decoration: underline; text-align: center; color: #36b3d0;" class="m-t-0 m-b-0">Cadastro de Novo Atendimento</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<form id="formId" action="{% url 'update-atendimento' atendimento.id %}" method="POST">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="panel panel-primary">
+							<div class="panel-body">
+								<div class="m-t-0">
+									<h4  class="m-t-0" style="color: #49b0e8; position: relative; right: 8px;">Paciente
+										<span style="font-size: 33px" class="pull-right"><i class="mdi mdi-human"></i></span></h4>
+									<div class="row">
+										<div hidden  class="form-group">
+												<select  class="form-control" name="paciente" required="" id="id_paciente2">
+														  <option value={{atendimento.paciente.id}} >{{atendimento.paciente.nome}}</option>
+												</select>
+										</div>
+										<div style="padding: 0px; margin: 0px;" class="col-sm-12 col-xs-12 form-group">
+											<div style="padding: 0px; margin: 0px;" class="form-group col-sm-6 col-xs-6">
+												<label>Nome:</label>
+												<input value="{{atendimento.paciente.nome}}" disabled type="text" name="nome" maxlength="200" required id="id_nome" class="form-control" placeholder="Nome"/>
+											</div>
+											<div class="form-group col-sm-6 col-xs-6">
+												<label>Nome da Mãe:</label>
+												<input value="{{atendimento.paciente.nomedamae}}" disabled type="text"  maxlength="100" required id="id_nomedamae" class="form-control" placeholder="Nome"/>
+											</div>
+										</div>
+											<div style="padding: 0px; margin: 0px; " class="col-sm-12 col-xs-12 form-group">
+												<div style="padding: 0px;" class="form-group col-sm-6 col-xs-6">
+													<label>CPF:</label>
+													<input value="{{atendimento.paciente.cpf}}" disabled type="text" maxlength="11" required id="id_cpf" class="form-control" placeholder="000.000.000-00"/>
+												</div>
+												<div class="col-sm-6 col-xs-6 form-group">
+													<label>CNS</label>
+													<input value="{{atendimento.paciente.cns}}" disabled type="text" maxlength="200" required id="id_cns" class="form-control" placeholder="11111111"/>
+												</div>
+											</div>
+										<div style="padding: 0px; margin: 0px;" class="col-sm-12 col-xs-12 form-group">
+												<div style="padding: 0px;" class="form-group col-sm-4 col-xs-4 ">
+													<label>Data de Nascimento:</label>
+													<input value="{{atendimento.paciente.datanasc | date:'d/m/Y'}}" disabled type="text"  maxlength="11" required id="id_datanasc" class="form-control" placeholder="00/00/0000"/>
+												</div>
+												<div class="col-sm-4 col-xs-4 form-group">
+													<label>Telefone:</label>
+													<input value="{{atendimento.paciente.Telefone}}" disabled type="text"  maxlength="200" required id="id_Telefone" class="form-control" placeholder="Telefone"/>
+												</div>
+												<div class="col-sm-4 col-xs-4 form-group">
+													<label>Sexo:</label>
+													<input value="{{atendimento.paciente.sexo}}" disabled type="text"  maxlength="20" required id="id_sexo" class="form-control"/>
+												</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="panel panel-primary">
+							<div class="panel-body">
+								<div class="m-t-0">
+									<h4  class="m-t-0" style="color: #f74c4c; position: relative; right: 8px;">Médico <span style="font-size: 33px" class="pull-right"><i class="mdi mdi-hospital"></i></span></h4>
+									<div class="row">
+										<div hidden style="padding: 0px; margin: 0px;" class="form-group">
+											<label>Selecione o médico:</label>
+											<select class="form-control" name="medico", id="id_medico2">
+  												<option value={{atendimento.medico.id}} >{{atendimento.medico.nome}}</option>
+											</select>
+										</div>
+										<div style="padding: 0px; margin: 0px;" class="col-sm-12 col-xs-12 form-group">
+											<div style="padding: 0px;" class="form-group col-sm-6 col-xs-6">
+													<label>Nome:</label>
+													<input value="{{atendimento.medico.nome}}" disabled type="text"  maxlength="200" required id="id_nome2" class="form-control" placeholder="Nome"/>
+											</div>
+											<div class="form-group col-sm-6 col-xs-6">
+													<label>Especialização:</label>
+													<input value="{{atendimento.medico.especializacao}}" disabled type="text"  maxlength="100" required id="id_especializacao" class="form-control" placeholder="Especialização"/>
+											</div>
+										</div>
+										<div style="padding: 0px; margin: 0px;" class="col-sm-12 col-xs-12 form-group">
+												<div style="padding: 0px;" class="form-group col-sm-6 col-xs-6 ">
+													<label>CPF:</label>
+													<input value="{{atendimento.medico.cpf}}" disabled type="text"  maxlength="11" required id="id_cpf2" class="form-control" placeholder="000.000.000-00"/>
+												</div>
+												<div class="col-sm-6 col-xs-6 form-group">
+													<label>Sexo:</label>
+													<input value="{{atendimento.medico.sexo}}" disabled type="text"  maxlength="20" required id="id_sexo2" class="form-control"/>
+												</div>
+										</div>
+										<div style="padding: 0px; margin: 0px;" class="col-sm-12 col-xs-12 form-group">
+												<div style="padding: 0px;" class="col-sm-6 col-xs-6 form-group">
+													<label>Número Regional:</label>
+													<input value="{{atendimento.medico.numeroregional}}" disabled type="text"  maxlength="10" required id="id_numeroregional" class="form-control" placeholder="Numero Regional"/>
+												</div>
+												<div class="col-sm-6 col-xs-6 form-group">
+													<label>CBO:</label>
+													<input value="{{atendimento.medico.cbo}}" disabled type="text"  maxlength="10" required id="id_cbo" class="form-control" placeholder="CBO"/>
+												</div>
+											</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+								<div class="row">
+					<div class="col-sm-12">
+						<div class="panel panel-primary">
+							<div class="panel-body">
+								<div class="m-t-0">
+									<h4  class="m-t-0" style="color: #35f135; position: relative; right: 8px;">Atendimento <span style="color:#ef4747; font-size: 13px"> *Observação: Alguns campos já preenchidos não podem ser reescritos nos atendimentos</span>
+										<span style="font-size: 33px" class="pull-right"><i class="mdi mdi-hospital-building"></i></span></h4>
+									<div class="row">
+										<div style="padding: 0px; margin: 0px;" class="col-sm-12 col-xs-12 form-group">
+												<div style="padding: 0px;"  class="col-sm-6 col-xs-6 form-group">
+													<label>Procedimento:</label>
+													<select  class="form-control" required name="procedimento" required="" id="id_procedimento">
+														<option {% if atendimento.procedimento == 1 %} selected {% endif %} value="1">Consulta</option>
+														<option {% if atendimento.procedimento == 2 %} selected {% endif %} value="2">Retorno</option>
+														<option {% if atendimento.procedimento == 3 %} selected {% endif %} value="3">Enfermaria</option>
+													</select>
+												</div>
+												<div class="form-group col-sm-6 col-xs-6 ">
+													<label>Data de Atendimento:</label>
+													<input disabled value="{{atendimento.data_atendimento | date:'d/m/Y' }}" name="data_atendimento" type="text" maxlength="11" required id="id_data_atendimento" class="form-control"/>
+												</div>
+										</div>
+										<div class="form-group">
+												<label>Queixa:</label>
+												<textarea  {% if atendimento.queixa != None %} disabled {% endif %} name="queixa" id="id_queixa"  maxlength="200" class="form-control" rows="3">{% if atendimento.queixa != None %}{{atendimento.queixa}}{% endif %}</textarea>
+										</div>
+										<div class="form-group">
+												<label>Hipotese:</label>
+												<textarea {% if atendimento.hipotese != None %} disabled {% endif %} name="hipotese" id="id_hipotese" maxlength="200" class="form-control" rows="3">{% if atendimento.hipotese != None %} {{atendimento.hipotese}} {% endif %}</textarea>
+										</div>
+										<div class="form-group">
+												<label>Diagnostico:</label>
+												<textarea  {% if atendimento.diagnostico != None %} disabled {% endif %} name="diagnostico" id="id_diagnostico"  maxlength="200" class="form-control" rows="3">{% if atendimento.diagnostico != None %}{{atendimento.diagnostico}}{% endif %}</textarea>
+										</div>
+										<div class="form-group">
+												<label>Doenças:</label>
+												<textarea  {% if atendimento.doencas != None %} disabled {% endif %} name="doencas" id="id_doencas"  maxlength="200" class="form-control" rows="3">{% if atendimento.doencas != None %}{{atendimento.doencas}}{% endif %}</textarea>
+										</div>
+										<div class="form-group">
+												<label>Receita:</label>
+											<textarea  {% if atendimento.receitas != None %} disabled {% endif %} name="receitas" id="id_receitas"  maxlength="200" class="form-control" rows="3">{% if atendimento.receitas != None %}{{atendimento.receitas}}{% endif %}</textarea>
+										</div>
+										<div class="form-group">
+												<label>Exames:</label>
+											<textarea  {% if atendimento.exames != None %} disabled {% endif %} name="exames" id="id_exames"  maxlength="200" class="form-control" rows="3">{% if atendimento.exames != None %}{{atendimento.exames}}{% endif %}</textarea>
+										</div>
+										<div class="form-group">
+												<label>Medicação:</label>
+											<textarea  {% if atendimento.medicacao != None %} disabled {% endif %} name="medicacao" id="id_medicacao"  maxlength="200" class="form-control" rows="3">{% if atendimento.medicacao != None %}{{atendimento.medicacao}}{% endif %}</textarea>
+										</div>
+										<div class="form-group">
+												<label>Observações:</label>
+											<textarea  name="observacoes" id="id_observacoes"  maxlength="200" class="form-control" rows="3">{% if atendimento.observacoes != None %}{{atendimento.observacoes}}{% endif %}</textarea>
+										</div>
+										<div style="position: relative; left: 80%;">
+											<button style="font-size: 19px;" type="Submit form" onclick="submitDetailsForm()" class="btn btn-primary waves-effect waves-light">
+												Salvar
+											</button>
+										<a href="{% url 'index' %}">
+											<span style="font-size: 19px; "  class="btn btn-danger waves-effect waves-light">
+												Voltar
+											</span>
+										</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock  %}
+
+{% block scripts %}
+{{ block.super }}
+<script type="text/javascript">
+	function submitDetailsForm() {
+		$("#formId :disabled").removeAttr('disabled');
+       $("#formId").submit();
+    }
+	muda('#Atend');
+ </script>
+
+{% endblock  %}
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Editando Paciente</title>
+	</head>
+	<body>
+		<form action="{% url 'update-atendimento' atendimento.id %}" method="POST">
+            {% csrf_token%}
+            {{ form.as_p }}
+       <button type="submit">Salvar</button>
+</form>
+	</body>
+</html>

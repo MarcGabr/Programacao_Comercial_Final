@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Login Sistema</title>
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+        <link href="{% static 'assets/css/icons.css' %}" rel="stylesheet" type="text/css">
+        <link href="{% static 'assets/css/style.css' %}" rel="stylesheet" type="text/css">
+        <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+        <link rel="shortcut icon" href="{% static 'imagens/icons/SIE-C.ico' %}">
+    </head>
+
+
+    <body>
+        
+        <!-- Begin page -->
+
+        <div class="accountbg"></div>
+        <div class="wrapper-page" style="margin-top: 2%;">
+            
+            <div class="panel panel-color panel-primary panel-pages">
+                <div style="padding-top: 20px; padding-left: 10px; float: left;" class="float-right" id="teste3" hidden>
+                    <a style="font-size: 27px;"><i class="fa fa-arrow-circle-left"></i></a>
+                </div>
+
+                <div class="panel-body" style="padding: 10px 30px; background-color: #35556a;" >
+                    <h3 class="text-center m-t-0 m-b-15">
+                        <a href=""><img width="50%" src="{% static 'imagens/SIEt.png' %}" alt="logo-img"></a>
+                    </h3>
+                    <h2 class="text-muted text-center m-t-0" style="text-transform: uppercase; color: #4acebf;"> Sistema Integrado de Emergência</h2>
+                    <div class="panel-body" id="teste1" hidden>
+                        <h4 class="text-muted text-center m-t-0"><b>Recuperar Senha</b></h4>
+                        <span>Digite seu e-mail e as instruções serão para o mesmo!</span>
+                        <form class="form-horizontal m-t-20" action="index.html">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input class="form-control" type="email" required="" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="form-group text-center m-t-30 m-b-0">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit">Enviar</button>
+                                </div>
+                            </div>
+    
+                        </form>
+                    </div>
+                   
+                    <div id="teste2">
+                        <h3 class="text-muted text-center m-t-0"><b>Login</b></h3>
+                        <form class="form-horizontal m-t-20" method="post" action="/">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input class="form-control" input name="usuario" type="text" id="usuario" value="{{usuario}}"  placeholder="Username">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <input class="form-control" name="senha" type="password" id="senha" value="{{senha}}" placeholder="Senha">
+                                </div>
+                            </div>
+                            <div>
+                                <center>
+                                    {{mensagem}}
+                                </center>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <div class="checkbox checkbox-primary">
+                                        <input id="checkbox-signup" type="checkbox" checked>
+                                        <label for="checkbox-signup">
+                                            Lembre-se
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="form-group text-center m-t-40">
+                                <div class="col-xs-12">
+                                    <button class="btn btn-primary btn-block btn-lg waves-effect waves-light" type="submit" value="login">Entrar</button>
+                                </div>
+                            </div>
+    
+                            <div class="form-group m-t-30 m-b-0">
+                                <div id="button1" class="col-sm-7">
+                                    <a  class="text-muted"><i class="fa fa-lock m-r-5"></i> Esqueceu sua senha?</a>
+                                </div>
+                                <div class="col-sm-5 text-right">
+                                    <a href="#" class="text-muted">Criar um nova conta</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <script>
+            $('#button1').on('click', function(){
+                $('div#teste2').slideUp();
+                $('div#teste1').slideDown();
+                $('div#teste3').show();
+            });
+            $('#teste3').on('click', function(){
+                $('div#teste2').slideDown();
+                $('div#teste1').slideUp();
+                $('div#teste3').hide();
+            });
+        </script>
+    </body>
+</html>
