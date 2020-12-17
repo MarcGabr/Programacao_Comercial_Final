@@ -4,12 +4,13 @@
 {% load static %}
 {% block  css %}
 	<title>Listagem de Atendimento</title>
+	<link href="{% static 'assets/plugins/bootstrap-sweetalert/sweet-alert.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 
 {% block  main %}
 <div class="content">
-
+{% csrf_token %}
 	<div >
 		<div class="page-header-title">
 			<h4 class="page-title">Atendimentos</h4>
@@ -83,7 +84,7 @@
 												<a href="{% url 'update-atendimento' atendimento.id %}">
 													<button  style="border-radius: 20px;" type="button" class=" btn btn-success waves-effect waves-light"><span style="font-size: 20px;"  class="mdi mdi-pencil-box-outline" ></span></button>
 												</a>
-												<a href="{% url 'delete-atendimento' atendimento.id %}">
+												<a href="#" onclick="confirmDelete({{atendimento.id}})">
 													<button style="	border-radius: 20px;" type="button" class="btn btn-danger waves-effect waves-light "><span style="font-size: 20px;" class="mdi mdi-delete" ></span></button>
 												</a>
 											</td>
@@ -113,12 +114,47 @@
        'listar-atendimentos'
     }
  </script>
-<script src="{% static 'assets/plugins/datatables/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'assets/plugins/datatables/dataTables.bootstrap.js' %}"></script>
-<!-- Datatable init js -->
-<script src="{% static 'assets/pages/datatables.init.js' %}"></script>
-<script>
-	$("#datatable_info").html('')
+<script type="text/javascript">
+	function confirmDelete(id) {
+		swal({
+                title: "Deixa realmente deletar?",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar',
+                confirmButtonClass: 'btn-danger',
+                confirmButtonText: "Sim, Delete",
+                closeOnConfirm: false
+            }, function (isConfirm) {
+			if (!isConfirm) return;
+			$.ajax({
+				type:'POST',
+				url:  "{% url 'delete-atendimento' %}",
+				data:{
+					csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+					action: 'post',
+					id: id,
+				},
+				dataType: 'json',
+				success: function () {
+                	swal("Deletado", "", "success");
+                	 setTimeout(function () {
+    					location.reload();
+					 }, 2000);
+            	},
+            	error: function (xhr, ajaxOptions, thrownError) {
+                	swal("Error!", "Tente novamente", "error");
+            	}
+			  });
+            });
+	}
 </script>
+        <script src="{% static 'assets/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+        <script src="{% static 'assets/plugins/datatables/dataTables.bootstrap.js' %}"></script>
+        <!-- Datatable init js -->
+        <script src="{% static 'assets/pages/datatables.init.js' %}"></script>
+ 		<script src="{% static 'assets/plugins/bootstrap-sweetalert/sweet-alert.min.js' %}"></script>
+        <script>
+			$("#datatable_info").html('')
+        </script>
 
 {% endblock  %}

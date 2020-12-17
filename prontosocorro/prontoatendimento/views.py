@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, QueryDict
 from .models import (Paciente, Medico, Atendimento)
 from .forms import PacienteForm, MedicoForm, AtendimentoForm
 #from prontosocorro.utilitarios import AutenticacaoObrigatoria
@@ -59,7 +59,14 @@ def update_paciente(request, id):
         return render(request, 'prontoatendimento/paciente_update.html', data)
 
 @login_required
-def delete_paciente(request, id):
+def delete_paciente(request):
+    id = int(QueryDict(request.body).get('id'))
+    paciente = Paciente.objects.get(id=id)
+    paciente.delete()
+    return JsonResponse("", safe=False)
+
+@login_required
+def delete_paciente2(request, id):
     paciente = Paciente.objects.get(id=id)
     # if request.method == 'POST':
     paciente.delete()
@@ -98,9 +105,15 @@ def update_medico(request, id):
         data['medico'] = medico
         data['form'] = form
         return render(request, 'prontoatendimento/medico_update.html', data)
+@login_required
+def delete_medico(request):
+    id = int(QueryDict(request.body).get('id'))
+    medico = Medico.objects.get(id=id)
+    medico.delete()
+    return JsonResponse("", safe=False)
 
 @login_required
-def delete_medico(request, id):
+def delete_medico2(request, id):
     medico = Medico.objects.get(id=id)
     medico.delete()
     return redirect('listar-medicos')
@@ -139,7 +152,14 @@ def update_atendimento(request, id):
         return render(request, 'prontoatendimento/atendimento_update.html', data)
 
 @login_required
-def delete_atendimento(request, id):
+def delete_atendimento(request):
+    id = int(QueryDict(request.body).get('id'))
+    atendimento = Atendimento.objects.get(id=id)
+    atendimento.delete()
+    return JsonResponse("", safe=False)
+
+@login_required
+def delete_atendimento2(request, id):
     atendimento = Atendimento.objects.get(id=id)
     atendimento.delete()
     return redirect('listar-atendimentos')
@@ -150,3 +170,24 @@ def busca(request):
     medicos = list(Medico.objects.all().values('nome', 'cpf', 'sexo',  'cbo', 'numeroregional', 'especializacao','id'))
     data = {'pacientes': pacientes, 'medicos': medicos}
     return JsonResponse(data, safe=False)
+
+from .serializers import *
+from rest_framework.generics import ListAPIView
+
+class medicolistapi(ListAPIView):
+    serializer_class = SerializadorMedico
+
+    def get_queryset(self):
+        return Medico.objects.all()
+
+class pacientelistapi(ListAPIView):
+    serializer_class = SerializadorPaciente
+
+    def get_queryset(self):
+        return Paciente.objects.all()
+
+class atendimentolistapi(ListAPIView):
+    serializer_class = SerializadorAtendimento
+
+    def get_queryset(self):
+        return Atendimento.objects.all()
